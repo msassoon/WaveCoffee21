@@ -27,19 +27,7 @@
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <meta name="robots" content="noindex,nofollow" />
 	
-<script>
-  const signIn = new OktaSignIn({baseUrl: 'https://dev-69124392.okta.com'});
 
-  signIn.showSignInToGetTokens({
-    scopes: ['openid', 'profile'] // optional
-  }).then(function(tokens) {
-    // Store tokens
-  }).catch(function(error) {
-    // This function is invoked with errors the widget cannot recover from:
-    // Known errors: CONFIG_ERROR, UNSUPPORTED_BROWSER_ERROR
-  });
-</script>
-	
 <!-- Messenger code -->
 	
     <script>
@@ -85,7 +73,6 @@
         "OktaUtil" defines a global OktaUtil object
         that contains methods used to complete the Okta login flow.
      -->
-    {{{OktaUtil}}}
 
     <script type="text/javascript">
         // "config" object contains default widget configuration

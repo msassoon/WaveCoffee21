@@ -24,9 +24,8 @@
 	<meta name="google-site-verification" content="rKd_uDDu2Sh95Z2i6PXlOHkPZEQHc82-VpyPi7oQEiQ" />
 	
 <!-- OKTA code -->
-<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
-<script src="https://global.oktacdn.com/okta-signin-widget/6.4.3/js/okta-sign-in.min.js" type="text/javascript"></script>
-<link href="https://global.oktacdn.com/okta-signin-widget/6.4.3/css/okta-sign-in.min.css" type="text/css" rel="stylesheet"/>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta name="robots" content="noindex,nofollow" />
 	
 <script>
   const signIn = new OktaSignIn({baseUrl: 'https://dev-69124392.okta.com'});
@@ -79,53 +78,30 @@
   <area shape="rect" coords="1033,77,1197,115" alt="Contact Us" href="contact.html">
 </map>
 
-<div id="widget-container"></div>
-	
-<div class="container">
-      <h1 class="text-center">Login to Wave Coffee</h1>
-      <div id="messageBox" class="jumbotron">
-        You are not logged in.
-      </div>
-      <!-- where the sign-in form appears -->
-      <div id="okta-login-container"></div>
-      <button id="logout" class="button" onclick="logout()" style="display: none">Logout</button>
-    </div>
+    <div class="login-bg-image tb--background" style="background-image: https://msassoon.github.io/WaveCoffee21/images/logo.png"></div>
+    <div id="okta-login-container"></div>
+
+    <!--
+        "OktaUtil" defines a global OktaUtil object
+        that contains methods used to complete the Okta login flow.
+     -->
+    {{{OktaUtil}}}
+
     <script type="text/javascript">
-       const oktaSignIn = new OktaSignIn({
-          issuer: "https://dev-69124392.okta.com/oauth2/default",
-          redirectUri: 'https://msassoon.github.io/WaveCoffee21/auth/callback',
-          clientId: "0oa5ht86cxdWGt92Z5d7",
-          useInteractionCodeFlow: true
-       });
+        // "config" object contains default widget configuration
+        // with any custom overrides defined in your admin settings.
+        var config = OktaUtil.getSignInWidgetConfig();
 
-       // Search for URL Parameters to see if a user is being routed to the application to recover password
-       var searchParams = new URL(window.location.href).searchParams;
-       oktaSignIn.otp = searchParams.get('otp');
-       oktaSignIn.state = searchParams.get('state');
-	
-	          oktaSignIn.authClient.token.getUserInfo().then(function(user) {
-        document.getElementById("messageBox").innerHTML = "Hello, " + user.email + "! You are *still* logged in! :)";
-        document.getElementById("logout").style.display = 'block';
-      }, function(error) {
-        oktaSignIn.showSignInToGetTokens({
-          el: '#okta-login-container'
-        }).then(function(tokens) {
-          oktaSignIn.authClient.tokenManager.setTokens(tokens);
-          oktaSignIn.remove();
-
-          const idToken = tokens.idToken;
-          document.getElementById("messageBox").innerHTML = "Hello, " + idToken.claims.email + "! You just logged in! :)";
-          document.getElementById("logout").style.display = 'block';
-
-        }).catch(function(err) {
-          console.error(err);
-        });
-      });
-
-      function logout() {
-        oktaSignIn.authClient.signOut();
-        location.reload();
-      }
+        // Render the Okta Sign-In Widget
+        var oktaSignIn = new OktaSignIn(config);
+        oktaSignIn.renderEl({ el: '#okta-login-container' },
+            OktaUtil.completeLogin,
+            function(error) {
+                // Logs errors that occur when configuring the widget.
+                // Remove or replace this with your own custom error handler.
+                console.log(error.message, error);
+            }
+        );
     </script>
 	
 </body>

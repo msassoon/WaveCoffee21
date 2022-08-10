@@ -22,8 +22,11 @@
   console.log('GA tag loaded');
 	 
 </script>
+
+	<!-- OKTA Plugin Library -->
+<script src="https://global.oktacdn.com/okta-auth-js/5.2.2/okta-auth-js.min.js" type="text/javascript"></script>
 	
-<script src="https://apis.google.com/js/platform.js" async defer></script>
+	<!-- <script src="https://apis.google.com/js/platform.js" async defer></script> -->
 	
     <script>
 (function (g, e, n, es, ys) {
@@ -65,7 +68,7 @@ top:450px;right:-15px;position:fixed;z-index:99999;padding:10px;color:#000000;bo
   <area shape="rect" coords="1033,77,1197,115" alt="Contact Us" href="contact.html">
 </map>
 	
-<!-- Google Sign In -->
+<!-- Google Sign In 
 
     <script src="https://accounts.google.com/gsi/client" async defer></script>
     <div id="g_id_onload"
@@ -73,7 +76,41 @@ top:450px;right:-15px;position:fixed;z-index:99999;padding:10px;color:#000000;bo
          data-ux_mode="redirect"
          data-redirecturi="https://msassoon.github.io/WaveCoffee21/secure.html">
     </div>
-    <div class="g_id_signin" data-type="standard"></div>
+    <div class="g_id_signin" data-type="standard"></div> -->
+
+<script>
+	Genesys('registerPlugin', 'AuthProvider', (AuthProvider) => {
+
+  // COMMAND
+  // *********
+  // getAuthCode
+
+  let oktaTransactionStorage = window.document.cookie.toString(); // Get nonce from cookie
+
+  if (oktaTransactionStorage) {
+  const storage = oktaTransactionStorage.split('okta-oauth-nonce=')[1]; // Extract 'okta-oauth-nonce' cookie from 'oktaTransactionStorage'
+  const nonce = storage.split(';')[0];
+  }
+
+  const urlParams = new URLSearchParams(window.location.search); // Get the authorization response which is added as a query string from the redirect URL
+  const authCode = urlParams.has('code') ? urlParams.get('code'); // Get code from the query string
+
+  /* Register Command - mandatory */
+
+  AuthProvider.registerCommand('getAuthCode', (e) => {
+
+  //Messenger calls this command to get the the tokens.
+
+  e.resolve({
+      authCode: <authCode>,			// Pass your authCode here
+      redirectUri: <your redirect uri>,	   // Pass the redirection URI configured in your authentication provider here
+      nonce: <nonce>,				//  Mandatory parameter in OKTA Javascript SDK approach.
+      maxAge: <maxAge>				// Pass the elapsed time in seconds as an optional parameter
+      codeVerifier: <codeVerifier>		// For PKCE Oauth flow: If you use the Okta Auth JavaScript SDK to authenticate signin, get the code verifier from session storage. If you use the endpoint to authenticate signin, pass a cryptographically random string that you used to generate the codeChallenge value.
+    });
+  });
+});
+	</script>
 	
 </body>
 </html>

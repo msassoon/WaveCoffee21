@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html xmlns="//www.w3.org/1999/html" xmlns="//www.w3.org/1999/html">
+	
+<head>
+    <title>Wave Coffee</title>
+	<link rel="shortcut icon" href="favicon.ico"/>
+	<input type="hidden" id="email" name="email" value="marc.sassoon@genesys.com">
+	<input type="hidden" id="firstname" name="firstname" value="Marc">
+	<input type="hidden" id="lastname" name="lastname" value="Sassoon">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- Set URL parms -->
+	
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-177251718-1"></script>
+
+	
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-177251718-1');
+  console.log('GA tag loaded');
+	 
+</script>
+<!-- OKTA -->
+  
+      <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous" />
+
+    <script src="https://global.oktacdn.com/okta-auth-js/7.0.0/okta-auth-js.min.js" type="text/javascript"></script>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+
+	
+    <script>
+(function (g, e, n, es, ys) {
+        g['_genesysJs'] = e;
+        g[e] = g[e] || function () {
+          (g[e].q = g[e].q || []).push(arguments)
+        };
+        g[e].t = 1 * new Date();
+        g[e].c = es;
+        ys = document.createElement('script'); ys.async = 1; ys.src = n; ys.charset = 'utf-8'; document.head.appendChild(ys);
+      })(window, 'Genesys', 'https://apps.mypurecloud.ie/genesys-bootstrap/genesys.min.js', {
+        environment: 'euw1',
+        deploymentId: '820df811-6380-46a3-9320-929b3a8d39c2'
+      });
+	         Genesys("command", "Database.set", {
+  	messaging: {
+    		customAttributes: {
+      				   department: "sales",
+      				   ref_number: "86429835673",
+      				   order_status: "submitted"
+    				   }
+  		   }
+	});
+	Genesys("subscribe", "Messenger.opened", function() {gtag('event','Engage',{'event_category':'GPEWM','event_label': 'Messenger opened'});});
+   	Genesys("subscribe", "Conversations.started", function() {gtag('event','Engage',{'event_category':'GPEWM','event_label': 'Messenger Conversation started'});});
+	Genesys("subscribe", "Messenger.closed", function() {gtag('event','Engage',{'event_category':'GPEWM','event_label': 'Messenger Closed'});});
+	Genesys("subscribe", "Conversations.closed", function() {gtag('event','Engage',{'event_category':'GPEWM','event_label': 'Messenger Conversation closed'});});    
+    </script>
+
+	
+<style>
+.button {
+top:450px;right:-15px;position:fixed;z-index:99999;padding:10px;color:#000000;border:1px solid #000000;transform: rotate(-90deg);height:43.5px;font-weight:700;
+}
+
+.chat-button {background-color: #ffffff!;}
+</style>
+	
+</head>
+
+<body>
+
+<img src="images/home.jpg" alt="Home" usemap="#workmap" width=100% height=100%>
+<map name="workmap">
+  <area shape="rect" coords="288,74,638,123" alt="Store" href="store.html">
+  <area shape="rect" coords="1255,465,1534,665" alt="Shop Now" href="store.html">
+  <area shape="rect" coords="1233,77,1497,215" alt="Contact Us" href="contact.html">
+</map>
+
+<!-- OKTA script -->
+   <script>
+      var GC_TOKEN = "";
+
+      function logout(_token) {
+        console.log("logout with token,", _token);
+
+        deleteToken(_token);
+      }
+
+      const deleteToken = async (_token) => {
+        try {
+          console.log("try to delete");
+          const res = await axios.delete(`https://api.mypurecloud.ie/api/v2/webdeployments/token/revoke`, {
+            headers: {
+              Authorization: "Bearer " + _token,
+            },
+          });
+          return res.data;
+        } catch (error) {
+          console.error(error);
+        }
+      };
+
+      function generateURL() {
+        console.log("generate URL...");
+        const oktaURL = "https://dev-69124392.okta.com/oauth2/default/v1/authorize?client_id=0oa5ht86cxdWGt92Z5d7&scope=openid%20email%20profile%20offline_access&response_type=code&redirect_uri=https://msassoon.github.io/WaveCoffee21/index.html";
+
+        let text = "";
+        const possible = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789-._~";
+        for (let i = 0; i < 20; i++) {
+          text += possible.charAt(Math.floor(Math.random() * possible.length));
+        }
+        return oktaURL + "&state=" + text;
+      }
+
+      // function generateCodeVerifier(length) {
+      //   let text = "";
+      //   const possible = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789-._~";
+      //   for (let i = 0; i < length; i++) {
+      //     text += possible.charAt(Math.floor(Math.random() * possible.length));
+      //   }
+      //   return text;
+      // }
+
+      const oktaConfig = {
+        redirectUri: "https://localhost/index.html",
+        clientId: "0oa5ht86cxdWGt92Z5d7",
+        issuer: "https://dev-69124392.okta.com/oauth2/default",
+        scopes: ["openid", "email", "profile", "offline_access"],
+        pkce: false,
+        responseType: "code",
+        maxAge: 7200,
+      };
+
+      const authClient = new OktaAuth(oktaConfig);
+
+      (function () {
+        Genesys("registerPlugin", "AuthProvider", (AuthProvider) => {
+          var url = window.location.href;
+          // if (url.indexOf("code") <= -1) {
+          //   authClient.signInWithRedirect({
+          //     originalUri: "https://localhost/index.html",
+          //     ...oktaConfig,
+          //   });
+          // } else {
+
+          let oktaTransactionStorage = window.document.cookie.toString(); // Get nonce from cookie
+          var nonce = "";
+          if (oktaTransactionStorage) {
+            const storage = oktaTransactionStorage.split("okta-oauth-nonce=")[1]; // Extract 'okta-oauth-nonce' cookie from 'oktaTransactionStorage'
+            nonce = storage.split(";")[0];
+          }
+
+          const urlParams = new URLSearchParams(window.location.search); // Get the authorization response which is added as a query string from the redirect URL
+          const authCode = urlParams.has("code") ? urlParams.get("code") : ""; // Get code from the query string
+
+          console.log("authcode: " + authCode);
+          console.log("nonce: " + nonce);
+
+          /* Register Command - mandatory */
+
+          AuthProvider.registerCommand("getAuthCode", (e) => {
+            e.resolve({
+              authCode: authCode,
+              redirectUri: "https://localhost/index.html",
+              //nonce: nonce,
+              //maxAge: 7200,
+            });
+          });
+
+          AuthProvider.subscribe("Auth.ready", (res) => {
+            //bAuthenticated = AuthProvider.data('Auth.authenticated');
+            console.log("AUTH READY");
+            //console.log(res);
+          });
+
+          AuthProvider.subscribe("Auth.authenticated", (res) => {
+            console.log("Auth.authenticated");
+            console.log(res);
+            GC_TOKEN = res?.data?.jwt;
+            console.log("GC_TOKEN", GC_TOKEN);
+          });
+
+          AuthProvider.ready();
+          //}
+        });
+      })();
+    </script>
+
+      <div class="container" style="padding-top: 50px">
+      <!-- Content here -->
+      <button type="button" class="btn btn-primary" onclick="location.href=generateURL()">OKTA Login</button>
+      <button type="button" class="btn btn-primary" onclick="logout(GC_TOKEN)">Logout</button>
+    </div>
+  
+</body>
+</html>

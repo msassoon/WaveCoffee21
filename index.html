@@ -52,7 +52,9 @@
 	Genesys("subscribe", "Messenger.opened", function() {gtag('event','Engage',{'event_category':'GPEWM','event_label': 'Messenger opened'});});
    	Genesys("subscribe", "Conversations.started", function() {gtag('event','Engage',{'event_category':'GPEWM','event_label': 'Messenger Conversation started'});});
 	Genesys("subscribe", "Messenger.closed", function() {gtag('event','Engage',{'event_category':'GPEWM','event_label': 'Messenger Closed'});});
-	Genesys("subscribe", "Conversations.closed", function() {gtag('event','Engage',{'event_category':'GPEWM','event_label': 'Messenger Conversation closed'});});    
+	Genesys("subscribe", "Conversations.closed", function() {gtag('event','Engage',{'event_category':'GPEWM','event_label': 'Messenger Conversation closed'});}); 
+	Genesys("subscribe", "Journey.qualifiedWebMessagingOffer", function() {gtag('event','Engage',{'event_category':'GPEWM','event_label': 'Messenging Offered'});});
+    	Genesys("subscribe", "Journey.qualifiedContentOffer", function() {gtag('event','Engage',{'event_category':'GPEWM','event_label': 'Content Offer Offered'});}); 
     </script>
 
 	

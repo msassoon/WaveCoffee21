@@ -4,6 +4,20 @@
 <head>
     <title>Wave Coffee L-9 White</title>
 	<link rel="shortcut icon" href="favicon.ico"/>
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-177251718-1"></script>
+
+	
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-177251718-1');
+  console.log('GA tag loaded');
+	 
+</script>
+	
     <script>
 (function (g, e, n, es, ys) {
         g['_genesysJs'] = e;
@@ -17,7 +31,7 @@
         environment: 'euc1',
         deploymentId: '78cd47c8-b8fe-4064-afa5-382a02739136'
       });
-	         Genesys("command", "Database.set", {
+     Genesys("command", "Database.set", {
   	messaging: {
     		customAttributes: {
       				   department: "sales",
@@ -27,8 +41,13 @@
     				   }
   		   }
 	});
-	    
-    </script>
+	Genesys("subscribe", "Messenger.opened", function() {gtag('event','Engage',{'event_category':'GPEWM','event_label': 'Messenger opened'});});
+   	Genesys("subscribe", "Conversations.started", function() {gtag('event','Engage',{'event_category':'GPEWM','event_label': 'Messenger Conversation started'});});
+	Genesys("subscribe", "Messenger.closed", function() {gtag('event','Engage',{'event_category':'GPEWM','event_label': 'Messenger Closed'});});
+	Genesys("subscribe", "Conversations.closed", function() {gtag('event','Engage',{'event_category':'GPEWM','event_label': 'Messenger Conversation closed'});});
+	Genesys("subscribe", "Journey.qualifiedWebMessagingOffer", function() {gtag('event','Engage',{'event_category':'GPEWM','event_label': 'Messenging Offered'});});
+    	Genesys("subscribe", "Journey.qualifiedContentOffer", function() {gtag('event','Engage',{'event_category':'GPEWM','event_label': 'Content Offer Offered'});}); 
+   </script>
 	
 <style>
 .button {

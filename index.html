@@ -77,7 +77,6 @@
       console.log("There was an error running the Toaster.open command:", error);
     }
   );
-});
 Genesys("subscribe","Toaster.accepted", function (e) {
 	console.log("Toaster was accepted", e);
 	Genesys("command", "Messenger.open");

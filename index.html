@@ -27,18 +27,19 @@
 
 	
     <script>
-(function (g, e, n, es, ys) {
-        g['_genesysJs'] = e;
-        g[e] = g[e] || function () {
-          (g[e].q = g[e].q || []).push(arguments)
-        };
-        g[e].t = 1 * new Date();
-        g[e].c = es;
-        ys = document.createElement('script'); ys.async = 1; ys.src = n; ys.charset = 'utf-8'; document.head.appendChild(ys);
-      })(window, 'Genesys', 'https://apps.mypurecloud.de/genesys-bootstrap/genesys.min.js', {
-        environment: 'euc1',
-        deploymentId: '78cd47c8-b8fe-4064-afa5-382a02739136'
-      });
+  (function (g, e, n, es, ys) {
+    g['_genesysJs'] = e;
+    g[e] = g[e] || function () {
+      (g[e].q = g[e].q || []).push(arguments)
+    };
+    g[e].t = 1 * new Date();
+    g[e].c = es;
+    ys = document.createElement('script'); ys.async = 1; ys.src = n; ys.charset = 'utf-8'; document.head.appendChild(ys);
+  })(window, 'Genesys', 'https://apps.mypurecloud.de/genesys-bootstrap/genesys.min.js', {
+    environment: 'euc1',
+    deploymentId: '78cd47c8-b8fe-4064-afa5-382a02739136'
+  });
+	  
      Genesys("command", "Database.set", {
   	messaging: {
     		customAttributes: {
@@ -49,16 +50,16 @@
     				   }
   		   }
 	});
+	
 	Genesys("subscribe", "Messenger.opened", function() {gtag('event','Engage',{'event_category':'GPEWM','event_label': 'Messenger opened'});});
    	Genesys("subscribe", "Conversations.started", function() {gtag('event','Engage',{'event_category':'GPEWM','event_label': 'Messenger Conversation started'});});
 	Genesys("subscribe", "Messenger.closed", function() {gtag('event','Engage',{'event_category':'GPEWM','event_label': 'Messenger Closed'});});
 	Genesys("subscribe", "Conversations.closed", function() {gtag('event','Engage',{'event_category':'GPEWM','event_label': 'Messenger Conversation closed'});}); 
 	Genesys("subscribe", "Journey.qualifiedWebMessagingOffer", function() {gtag('event','Engage',{'event_category':'GPEWM','event_label': 'Messenging Offered'});});
     	Genesys("subscribe", "Journey.qualifiedContentOffer", function() {gtag('event','Engage',{'event_category':'GPEWM','event_label': 'Content Offer Offered'});});
-	    Genesys("subscribe", "Toaster.ready", () => {
-  Genesys(
-    "command",
-    "Toaster.open",
+
+	    Genesys("subscribe", "Toaster.ready", function() {
+  Genesys("command","Toaster.open",
     {
       title: "Welcome to Wave Coffee",
       body: "We have a new world of coffee here. To get help, click below",
@@ -75,13 +76,13 @@
     function (error) {
       /*rejected callback*/
       console.log("There was an error running the Toaster.open command:", error);
-    }
-  );
+    });
+		});
+		
 Genesys("subscribe","Toaster.accepted", function (e) {
 	console.log("Toaster was accepted", e);
 	Genesys("command", "Messenger.open");
   });
-	    });
     </script>
 
 	

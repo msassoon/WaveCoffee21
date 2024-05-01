@@ -82,6 +82,7 @@
 Genesys("subscribe","Toaster.accepted", function (e) {
 	console.log("Toaster was accepted", e);
 	Genesys("command", "Messenger.open");
+	gtag('event','Engage',{'event_category':'Toaster','event_label': 'Toaster Accepted'});
   });
     </script>
 

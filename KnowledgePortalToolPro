@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html xmlns="//www.w3.org/1999/html" xmlns="//www.w3.org/1999/html">
+	
+<head>
+    <title>ToolPro Knowledge Portal</title>
+	<link rel="shortcut icon" href="favicon.ico"/>
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-1EEJ02RY58"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-1EEJ02RY58');
+  console.log('GA tag loaded');
+	 
+</script>
+<script type="text/javascript" charset="utf-8">
+  (function (g, e, n, es, ys) {
+    g['_genesysJs'] = e;
+    g[e] = g[e] || function () {
+      (g[e].q = g[e].q || []).push(arguments)
+    };
+    g[e].t = 1 * new Date();
+    g[e].c = es;
+    ys = document.createElement('script'); ys.async = 1; ys.src = n; ys.charset = 'utf-8'; document.head.appendChild(ys);
+  })(window, 'Genesys', 'https://apps.mypurecloud.de/genesys-bootstrap/genesys.min.js', {
+    environment: 'euc1',
+    deploymentId: '7e1fbe85-090c-41f3-b79f-2fc607ab4143'
+  });
+</script>
+	
+	
+</head>
+
+<body>
+<div id="header">
+    <img src="images/Header.jpg" alt="" />
+</div>
+<div id="genesys-support-center"></div>
+</body>
+</html>

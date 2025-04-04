@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html xmlns="//www.w3.org/1999/html" xmlns="//www.w3.org/1999/html">
+	
+<head>
+    <title>Wave Coffee</title>
+	<link rel="shortcut icon" href="favicon.ico"/>
+	<input type="hidden" id="email" name="email" value="genesyssassoon@genesys.com">
+	<input type="hidden" id="firstname" name="firstname" value="Maurice">
+	<input type="hidden" id="lastname" name="lastname" value="Sassoon">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- Set URL parms -->
+	
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-1EEJ02RY58"></script>
+
+	
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-1EEJ02RY58');
+  console.log('GA tag loaded');
+	 
+</script>
+	
+
+	
+    <script>
+  (function (g, e, n, es, ys) {
+    g['_genesysJs'] = e;
+    g[e] = g[e] || function () {
+      (g[e].q = g[e].q || []).push(arguments)
+    };
+    g[e].t = 1 * new Date();
+    g[e].c = es;
+    ys = document.createElement('script'); ys.async = 1; ys.src = n; ys.charset = 'utf-8'; document.head.appendChild(ys);
+  })(window, 'Genesys', 'https://apps.mypurecloud.de/genesys-bootstrap/genesys.min.js', {
+    environment: 'prod-euc1',
+    deploymentId: '275f1d94-62bf-4b0d-89ec-0bd409e82e5c'
+  });
+	  
+     Genesys("command", "Database.set", {
+  	messaging: {
+    		customAttributes: {
+      				   department: "sales",
+      				   ref_number: "86429835673",
+      				   order_status: "submitted",
+                       browser_language: navigator.language
+    				   }
+  		   }
+	});
+	
+	Genesys("subscribe", "Messenger.opened", function() {gtag('event','Engage',{'event_category':'GPEWM','event_label': 'Messenger opened'});});
+   	Genesys("subscribe", "Conversations.started", function() {gtag('event','Engage',{'event_category':'GPEWM','event_label': 'Messenger Conversation started'});});
+	Genesys("subscribe", "Messenger.closed", function() {gtag('event','Engage',{'event_category':'GPEWM','event_label': 'Messenger Closed'});});
+	Genesys("subscribe", "Conversations.closed", function() {gtag('event','Engage',{'event_category':'GPEWM','event_label': 'Messenger Conversation closed'});}); 
+	Genesys("subscribe", "Journey.qualifiedWebMessagingOffer", function() {gtag('event','Engage',{'event_category':'GPEWM','event_label': 'Messenging Offered'});});
+    	Genesys("subscribe", "Journey.qualifiedContentOffer", function() {gtag('event','Engage',{'event_category':'GPEWM','event_label': 'Content Offer Offered'});});
+
+	    Genesys("subscribe", "Toaster.ready", function() {
+  Genesys("command","Toaster.open",
+    {
+      title: "Welcome to IKEA",
+      body: "We have a new world of retail here. To get help, click below",
+      buttons: {
+        type: "binary", // required when 'buttons' is present. Values: "unary" for one action button, "binary" for two action buttons
+        primary: "Get Help", // optional, default value is "Accept"
+        secondary: "Maybe Later", // optional, default value is "Decline"
+      },
+    },
+    function () {
+      /*fulfilled callback*/
+      console.log("Toaster is opened");
+    },
+    function (error) {
+      /*rejected callback*/
+      console.log("There was an error running the Toaster.open command:", error);
+    });
+		});
+		
+Genesys("subscribe","Toaster.accepted", function (e) {
+	console.log("Toaster was accepted", e);
+	Genesys("command", "Messenger.open");
+	gtag('event','Engage',{'event_category':'Toaster','event_label': 'Toaster Accepted'});
+  });
+    </script>
+
+	
+<style>
+.button {
+top:450px;right:-15px;position:fixed;z-index:99999;padding:10px;color:#000000;border:1px solid #000000;transform: rotate(-90deg);height:43.5px;font-weight:700;
+}
+
+.chat-button {background-color: #ffffff!;}
+</style>
+	
+</head>
+
+<body>
+
+<img src="images/IKEA.jpg" alt="Home" usemap="#workmap" width=100% height=100%>
+<map name="workmap">
+  <area shape="rect" coords="288,74,638,123" alt="Store" href="store.html">
+  <area shape="rect" coords="1255,465,1534,665" alt="Shop Now" href="store.html">
+  <area shape="rect" coords="1233,77,1497,215" alt="Contact Us" href="contact.html">
+</map>
+
+</body>
+</html>
